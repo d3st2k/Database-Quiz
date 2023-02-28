@@ -1,5 +1,5 @@
 # Database-Quiz
-A simple quiz for testing your knowledge of database theory. 
+A simple quiz for testing your knowledge of database theory
 Which includes but is not limited to more than 300+ questions, with true or false questions and questions with 4 options.
 The questions are also not random but based on your result for every questions, so those that you get wrong are more proned to appear in a short time.
 
