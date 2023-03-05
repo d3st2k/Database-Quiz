@@ -5,14 +5,14 @@ import random
 class TrueFalseQuestions:
     def __init__(self, root, button):
         self.false_list = []
-        with open('./questions/false_ans.txt', 'r') as f:
+        with open('./src/questions/false_ans.txt', encoding="utf8") as f:
             line = f.readline()
             while line:
                 self.false_list.append(line)
                 line = f.readline()
 
         self.true_list = []
-        with open('./questions/true_ans.txt', encoding="utf8") as f:
+        with open('./src/questions/true_ans.txt', encoding="utf8") as f:
             line = f.readline()
             while line:
                 self.true_list.append(line)
