@@ -6,15 +6,11 @@ The questions are also not random but based on your result for every questions, 
 # Usage
 1. Download the zip file and extract it 
 2. Install `Python`
-3. Install `MySQL server` 
-4. Install the connector to connect `Python` and `MySQL server` using this command in CMD `pip install mysql-connector-python`
-5. Import the database to your MySQL server or just run the file `database_testbank.sql`
-6. If you have a different user or password that you use in MySQL server just change them in the `Main.py` file
-7. Use CMD to run the `Main.py` to run everything 
-8.1. If you don't know to use CMD (command prompt) just use some type of IDE (VSCode, IntelliJ etc)
+3. Use CMD to run the `Main.py` to run everything 
+3.1. If you don't know to use CMD (command prompt) just use some type of IDE (VSCode, IntelliJ etc)
 
 # Aplication
-The file `quiz.py` is forked from `Neti-G` and the rest is created from `d3st2k`
+The file `quiz.py` is forked from `https://github.com/Neti-G` and the rest is created from `d3st2k`
 For any problems or bug that you may encounter just send me an email on: garenaasllani2@gmai.com
 
 # License
