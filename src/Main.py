@@ -1,35 +1,27 @@
-import mysql.connector
 import random
+import csv
 import tkinter as tk
 from quiz import TrueFalseQuestions
 import sys
 
-# establish connection with database
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",  # Here you input the username of your MySQL server
-    password="",  # Here you input the password of your MySQL server
-    database="database_testbank"
-)
-# create a cursor object
+# Global values
 rand_generated_numbers = []
-mycursor = mydb.cursor()
 sub_root = tk.Tk()
 sub_root.withdraw()
 position = 0
 
-
 def array_with_points():
+    # Initialize the two-dimensional array with 240 rows and 6 columns
     global vargu_ID
-    mycursor.execute(
-        "SELECT id_question FROM `database_testbank`.`multiple_choice_questions`;")
-    keys = mycursor.fetchall()
-    vargu_ID = [[1 for j in range(2)] for i in range(len(keys))]
-    i = 0
-    for key in keys:
-        vargu_ID[i][0] = key[0]
-        i += 1
+    vargu_ID = []
 
+    with open('./src/Data_dump.csv') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            if row:
+                vargu_ID.append(row)
+        for row in vargu_ID:
+            row.append(1)
 
 array_with_points()
 
@@ -46,15 +38,15 @@ def generate_random(number):
     else:
         # Generate a random number
         for row in vargu_ID:
-            total += row[1]
+            total += int(row[7])
         upto = 0
         num = random.uniform(0, total)
         for row in vargu_ID:
-            if upto + row[1] >= num:
+            if upto + row[7] >= num:
                 randNumber = row[0]
                 break
-            upto += row[1]
-        rand = str(randNumber)
+            upto += row[7]
+        rand = int(randNumber) - 362
         if (rand not in rand_generated_numbers):
             position = len(rand_generated_numbers) - 1
             rand_generated_numbers.append(rand)
@@ -64,39 +56,21 @@ def generate_random(number):
 
 def get_question(flag):
     # Get a random number
-    global rand
+    global rand, question, option_a, option_b, option_c, option_d, answerColumn
     rand = generate_random(flag)
 
     # Get all the questions and options from the database
-    mycursor.execute(
-        "SELECT question FROM `database_testbank`.`multiple_choice_questions` WHERE id_question = " + rand + ";")
-    global question
-    question = mycursor.fetchone()[0]
+    question = str(vargu_ID[rand][1])
 
-    mycursor.execute(
-        "SELECT option_a FROM `database_testbank`.`multiple_choice_questions` WHERE id_question = " + rand + ";")
-    global option_a
-    option_a = str(mycursor.fetchone()[0].strip())
+    option_a = str(vargu_ID[rand][2])
 
-    mycursor.execute(
-        "SELECT option_b FROM `database_testbank`.`multiple_choice_questions` WHERE id_question = " + rand + ";")
-    global option_b
-    option_b = str(mycursor.fetchone()[0].strip())
+    option_b = str(vargu_ID[rand][3])
 
-    mycursor.execute(
-        "SELECT option_c FROM `database_testbank`.`multiple_choice_questions` WHERE id_question = " + rand + ";")
-    global option_c
-    option_c = str(mycursor.fetchone()[0].strip())
+    option_c = str(vargu_ID[rand][4])
 
-    mycursor.execute(
-        "SELECT option_d FROM `database_testbank`.`multiple_choice_questions` WHERE id_question = " + rand + ";")
-    global option_d
-    option_d = str(mycursor.fetchone()[0].strip())
+    option_d = str(vargu_ID[rand][5])
 
-    mycursor.execute(
-        "SELECT answer FROM `database_testbank`.`multiple_choice_questions` WHERE id_question = " + rand + ";")
-    global answerColumn
-    answerColumn = str(mycursor.fetchone()[0].strip())
+    answerColumn = str(vargu_ID[rand][6])
 
 
 def previous_question(result_label):
@@ -163,12 +137,12 @@ def check_answer(option, result_label):
     def on_click():
         if str(option).lower().replace(".,", "").strip() == str(answerColumn).lower().replace(".,", "").strip():
             result_label.config(text="Correct!", fg="green")
-            if (vargu_ID[int(rand) - 362][1] > 0.1):
-                vargu_ID[int(rand) - 362][1] -= 0.1
+            if (vargu_ID[rand][1] > 0.1):
+                vargu_ID[rand][1] -= 0.1
         else:
             result_label.config(text="Incorrect!", fg="red")
-            if (vargu_ID[int(rand) - 362][1] < 1):
-                vargu_ID[int(rand) - 362][1] += 0.1
+            if (vargu_ID[rand][1] < 1):
+                vargu_ID[rand][1] += 0.1
     return on_click
 
 
@@ -300,7 +274,6 @@ def main(sub_root):
 
     root.mainloop()
 
-
 def back_fun(root, sub_root):
     def on_click():
         sub_root.withdraw()
@@ -308,16 +281,10 @@ def back_fun(root, sub_root):
         options_button.config(command=check_frame(root, sub_root))
     return on_click
 
-
 def check_frame(root, sub_root):
     def on_click():
         root.withdraw()
         sub_root.deiconify()
     return on_click
 
-
 main(sub_root)
-
-# close the cursor and connection
-mycursor.close()
-mydb.close()
