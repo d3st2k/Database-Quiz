@@ -137,12 +137,12 @@ def check_answer(option, result_label):
     def on_click():
         if str(option).lower().replace(".,", "").strip() == str(answerColumn).lower().replace(".,", "").strip():
             result_label.config(text="Correct!", fg="green")
-            if (vargu_ID[rand][1] > 0.1):
-                vargu_ID[rand][1] -= 0.1
+            if (vargu_ID[rand][7] > 0.1):
+                vargu_ID[rand][7] -= 0.1
         else:
             result_label.config(text="Incorrect!", fg="red")
-            if (vargu_ID[rand][1] < 1):
-                vargu_ID[rand][1] += 0.1
+            if (vargu_ID[rand][7] < 1):
+                vargu_ID[rand][7] += 0.1
     return on_click
 
 
