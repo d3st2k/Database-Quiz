@@ -134,7 +134,7 @@
 
 429,"A _____ key is defined as a key that is used strictly for data retrieval purposes.","lookup"," foreign"," candidate"," secondary","secondary"
 
-430,"Referential _____ dictates that the foreign key must contain values that match the primary key in the related table, or must contain null.","integrity"," uniqueness"," model"," attribute","referential"
+430,"Referential _____ dictates that the foreign key must contain values that match the primary key in the related table, or must contain null.","integrity"," uniqueness"," model"," attribute","integrity"
 
 431,"The CUSTOMER tables primary key is CUS_CODE. The CUSTOMER primary key column has no null entries, and all entries are unique. This is an example of _____ integrity.","entity"," referential"," relational"," null","entity integrity"
 
@@ -162,11 +162,11 @@
 
 443,"In a database context, a(n) _____ indicates the use of different names to describe the same attribute.","entity"," duplicate"," synonym"," homonym","synonym"
 
-444,"The _____ relationship is the relationship between entities in which an occurrence in one entity corresponds to exactly one occurrence in another entity.","1:1"," 1:M"," M:1"," M:N","1:M"
+444,"The _____ relationship is the relational model ideal.","1:1"," 1:M"," M:1"," M:N","1:M"
 
-445,"A _____ represents the relationship between two entities, where the existence of an occurrence of one entity is dependent upon the existence of another occurrence of the other entity.","1:1"," 1:M"," M:1"," M:N","1:1"
+445,"The _____ relationship should be rare in any relational database design.","1:1"," 1:M"," M:1"," M:N","1:1"
 
-446,"A _____ relationship is the relationship between entities in which an occurrence in one entity corresponds to zero, one, or many occurrences in another entity.","1:N"," M:1"," M:N"," 1:1","M:N"
+446,"_____ relationships can be implemented by creating a new entity in 1:M relationships with the original entities.","1:N"," M:1"," M:N"," 1:1","M:N"
 
 447,"Another name for a composite entity is a(n) _____ entity.","bridge"," linked"," directive"," associative","bridge"
 
@@ -212,9 +212,9 @@
 
 468,"A _____ entity has a primary key that is partially or totally derived from the parent entity in the relationship.","strong"," weak"," business"," child","weak entity"
 
-469,"The existence of a(n) _____ entity indicates that its minimum cardinality is zero.","ternary"," optional"," strong"," weak","optional entity"
+469,"The existence of a(n) _____ entity indicates that its minimum cardinality is zero.","ternary","optional","strong"," weak","optional"
 
-470,"A _____ relationship exists when an association is maintained within a single entity.","unary"," ternary"," strong"," weak","unary relationship"
+470,"A _____ relationship exists when an association is maintained within a single entity.","unary"," ternary"," strong"," weak","unary"
 
 471,"A _____ relationship exists when three entities are associated.","unary"," strong"," ternary"," weak","ternary"
 
@@ -294,7 +294,7 @@
 
 509,"The ""_____"" characteristic of a primary key states that the primary key must uniquely identify each entity instance, must be able to guarantee unique values, and must not contain nulls.","unique values"," nonintelligent"," preferably single-attribute"," security-complaint","unique values"
 
-510,"According to the ""preferably single-attribute"" characteristic of a primary key, the primary key:","must be able to guarantee unique attribute values"," should have the minimum number of attributes possible"," should have embedded semantic meaning associated with each attribute"," must be composed of attributes that are free from security risks or violations.","should have the minimum number of attributes possible."
+510,"According to the ""preferably single-attribute"" characteristic of a primary key, the primary key:","must be able to guarantee unique attribute values"," should have the minimum number of attributes possible"," should have embedded semantic meaning associated with each attribute"," must be composed of attributes that are free from security risks or violations.","should have the minimum number of attributes possible"
 
 511,"The ""_____"" characteristic of a primary key states that the primary key should not have embedded semantic meaning.","unique values"," nonintelligent"," preferably single-attribute"," security-compliant","nonintelligent"
 
@@ -390,7 +390,7 @@
 
 557,"Which comparison operator indicates a value is not equal?","<"," <="," >="," <>","<>"
 
-558,"What type of command does this SQL statement use? SELECT P_CODE, P_DESCRIPT, P_PRICE_V_NAME FROM PRODUCT, VENDOR WHERE PRODUCT.V_CODE=VENDOR. V_CODE","set operator"," natural join"," old-style join"," procedural statement","""old-style"" join"
+558,"What type of command does this SQL statement use? SELECT P_CODE, P_DESCRIPT, P_PRICE_V_NAME FROM PRODUCT, VENDOR WHERE PRODUCT.V_CODE=VENDOR. V_CODE","set operator"," natural join","old-style join"," procedural statement","old-style join"
 
 559,"The special operator used to check whether an attribute value is within a range of values is _____.","BETWEEN"," NULL"," LIKE"," IN","BETWEEN"
 
