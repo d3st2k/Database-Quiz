@@ -5,7 +5,7 @@ from quiz import TrueFalseQuestions
 import sys
 
 # Global values
-rand_generated_numbers = [0] * 238
+rand_generated_numbers = []
 sub_root = tk.Tk()
 sub_root.withdraw()
 position = 0
