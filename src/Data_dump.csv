@@ -174,7 +174,7 @@
 
 449,"When you define a tables primary key, the DBMS automatically creates a(n) _____ index on the primary key column(s) you declared.","key"," composite"," unique"," primary","unique"
 
-450,"According to Codds _____ rule of relational databases, application programs and ad hoc facilities are logically unaffected when changes are made to the table structures that preserve the original table values (changing order of columns or inserting columns)","distribution independence","logical data independence","comprehensive data sublanguage","integrity independence","logical data independence"
+450,"According to Codds _____ rule of relational databases, application programs and ad hoc facilities are logically unaffected when changes are made to the table structures that preserve the original table values","distribution independence","logical data independence","comprehensive data sublanguage","integrity independence","logical data independence"
 
 451,"According to Codds _____ rule of relational databases, if the system supports low-level access to the data, users must not be allowed to bypass the integrity rules of the database.","nonsubversion"," information"," guaranteed access"," view updating","nonsubversion"
 
@@ -444,7 +444,7 @@
 
 584,"SQL requires the use of the _____ command to enter data into a table.","INSERT"," SELECT"," COMMIT"," NOT NULL","INSERT"
 
-585,"The _____ command permanently saves all changes—such as rows added, attributes modified, and rows deleted—made to any table in the database.","COMMIT"," SELECT"," ROLLBACK"," UPDATE","COMMIT"
+585,"The _____ command permanently saves all changes such as rows added, attributes modified, and rows deleted made to any table in the database.","COMMIT"," SELECT"," ROLLBACK"," UPDATE","COMMIT"
 
 586,"Which command would be used to delete the table row where the P_CODE is `BRT-345`?","DELETE FROM PRODUCT WHERE P_CODE = `BRT-345`;"," REMOVE FROM PRODUCT WHERE P_CODE = `BRT-345`;"," ERASE FROM PRODUCT WHERE P_CODE = `BRT-345`;"," ROLLBACK FROM PRODUCT WHERE P_CODE = `BRT-345`;","DELETE FROM PRODUCT WHERE P_CODE = `BRT-345`;"
 
