@@ -57,22 +57,25 @@ def get_question(flag):
     # Get a random number
     global rand, question, option_a, option_b, option_c, option_d, answerColumn
     rand = generate_random(flag)
+    options_available = [2, 3, 4, 5]
 
-    if(rand > -1 and rand < 240):
-        # Get all the questions and options from the database
-        question = str(vargu_ID[rand][1])
+    # Get all the questions and options from the database
+    question = str(vargu_ID[rand][1])
 
-        option_a = str(vargu_ID[rand][2])
+    # For the options to not get placed in the same place over and over again until you can just press the options without even looking, 
+    which would then stall our improvement. In that way, options get mixed between available ones so options a, b, c, and d.
+    
+    option_a = str(vargu_ID[rand][options_available.pop(random.randint(0, 3))])
 
-        option_b = str(vargu_ID[rand][3])
+    option_b = str(vargu_ID[rand][options_available.pop(random.randint(0, 2))])
 
-        option_c = str(vargu_ID[rand][4])
+    option_c = str(vargu_ID[rand][options_available.pop(random.randint(0, 1))])
 
-        option_d = str(vargu_ID[rand][5])
+    option_d = str(vargu_ID[rand][options_available.pop(0)])
 
-        answerColumn = str(vargu_ID[rand][6])
+    options_available = [2, 3, 4, 5]
 
-    return rand
+    answerColumn = str(vargu_ID[rand][6])
 
 
 def previous_question(result_label):
