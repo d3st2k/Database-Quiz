@@ -12,7 +12,7 @@ sub_root.withdraw()
 position = 0
 
 # You can find a comprehensive list of language codes used in the ISO 639-1 standard on this Wikipedia page: List of ISO 639-1 codes. By referring to this list, you can easily find the language code shortcuts for various languages. Read READ-ME/Extra Stuff for more explanations.
-target_language = "en"  # "sq" represents Albanian
+target_language = "en"  # "en" represents English
 translator = Translator(to_lang=target_language)
 
 
