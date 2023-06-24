@@ -2,6 +2,7 @@ import random
 import csv
 import tkinter as tk
 from quiz import TrueFalseQuestions
+from translate import Translator
 import sys
 
 # Global values
@@ -9,6 +10,11 @@ rand_generated_numbers = []
 sub_root = tk.Tk()
 sub_root.withdraw()
 position = 0
+
+# You can find a comprehensive list of language codes used in the ISO 639-1 standard on this Wikipedia page: List of ISO 639-1 codes. By referring to this list, you can easily find the language code shortcuts for various languages. Read READ-ME/Extra Stuff for more explanations.
+target_language = "en"  # "sq" represents Albanian
+translator = Translator(to_lang=target_language)
+
 
 def array_with_points():
     # Initialize the two-dimensional array with 240 rows and 6 columns
@@ -23,6 +29,7 @@ def array_with_points():
         for row in vargu_ID:
             row.append(1)
 
+
 array_with_points()
 
 
@@ -30,21 +37,21 @@ def generate_random(number):
     global position
     randNumber = 0
     if (number == -1):
-        if(position > 0):
+        if (position > 0):
             position -= 1
             rand = rand_generated_numbers[position]
         else:
             rand = -1
         return rand
     else:
-        while(True):
-            if(len(rand_generated_numbers) == 240):
-                    rand_generated_numbers.clear()
-                    rand = 240
-                    break
+        while (True):
+            if (len(rand_generated_numbers) == 240):
+                rand_generated_numbers.clear()
+                rand = 240
+                break
             # Generate a random number
             randNumber = random.randint(0, 239)
-            if(randNumber not in rand_generated_numbers):
+            if (randNumber not in rand_generated_numbers):
                 position = len(rand_generated_numbers) - 1
                 rand_generated_numbers.append(randNumber)
                 position += 1
@@ -59,88 +66,140 @@ def get_question(flag):
     rand = generate_random(flag)
     options_available = [2, 3, 4, 5]
 
-    # Get all the questions and options from the database
-    question = str(vargu_ID[rand][1])
+    if (rand > -1 and rand < 240):
+        # Get all the questions and options from the database
+        question = str(translator.translate(vargu_ID[rand][1]))
 
-    # For the options to not get placed in the same place over and over again until you can just press the options without even looking, 
-    which would then stall our improvement. In that way, options get mixed between available ones so options a, b, c, and d.
-    
-    option_a = str(vargu_ID[rand][options_available.pop(random.randint(0, 3))])
+        option_a = str(
+            vargu_ID[rand][options_available.pop(random.randint(0, 3))])
 
-    option_b = str(vargu_ID[rand][options_available.pop(random.randint(0, 2))])
+        option_b = str(
+            vargu_ID[rand][options_available.pop(random.randint(0, 2))])
 
-    option_c = str(vargu_ID[rand][options_available.pop(random.randint(0, 1))])
+        option_c = str(
+            vargu_ID[rand][options_available.pop(random.randint(0, 1))])
 
-    option_d = str(vargu_ID[rand][options_available.pop(0)])
+        option_d = str(vargu_ID[rand][options_available.pop(0)])
 
-    options_available = [2, 3, 4, 5]
+        options_available = [2, 3, 4, 5]
 
-    answerColumn = str(vargu_ID[rand][6])
+        answerColumn = str(vargu_ID[rand][6])
+    return rand
 
 
 def previous_question(result_label):
     def on_click():
-        if(int(get_question(-1)) < 0):
-            result_label.config(text="There are no more previous questions!", fg="red")
+        if (int(get_question(-1)) < 0):
+            result_label.config(
+                text="There are no more previous questions!", fg="red")
         else:
-            question_label.config(text=question)
-            option_a_button.config(
-                text=option_a, command=check_answer(option_a, result_label))
-            option_b_button.config(
-                text=option_b, command=check_answer(option_b, result_label))
-            option_c_button.config(
-                text=option_c, command=check_answer(option_c, result_label))
-            option_d_button.config(
-                text=option_d, command=check_answer(option_d, result_label))
-            result_label.config(text="")
+            if (target_language != "en"):
+                question_label.config(text=question)
+                option_a_button.config(
+                    text=str(translator.translate(option_a)), command=check_answer(option_a, result_label))
+                option_b_button.config(
+                    text=str(translator.translate(option_b)), command=check_answer(option_b, result_label))
+                option_c_button.config(
+                    text=str(translator.translate(option_c)), command=check_answer(option_c, result_label))
+                option_d_button.config(
+                    text=str(translator.translate(option_d)), command=check_answer(option_d, result_label))
+                result_label.config(text="")
+            else:
+                question_label.config(text=question)
+                option_a_button.config(
+                    text=option_a, command=check_answer(option_a, result_label))
+                option_b_button.config(
+                    text=option_b, command=check_answer(option_b, result_label))
+                option_c_button.config(
+                    text=option_c, command=check_answer(option_c, result_label))
+                option_d_button.config(
+                    text=option_d, command=check_answer(option_d, result_label))
+                result_label.config(text="")
     return on_click
 
 
 def next_question(result_label):
     def on_click():
-        if(int(get_question(0)) == 240):
-            result_label.config(text="You have completed all the questions!", fg="green")
+        if (int(get_question(0)) == 240):
+            result_label.config(
+                text="You have completed all the questions!", fg="green")
         else:
-            question_label.config(text=question)
-            option_a_button.config(
-                text=option_a, command=check_answer(option_a, result_label))
-            option_b_button.config(
-                text=option_b, command=check_answer(option_b, result_label))
-            option_c_button.config(
-                text=option_c, command=check_answer(option_c, result_label))
-            option_d_button.config(
-                text=option_d, command=check_answer(option_d, result_label))
-            result_label.config(text="")
+            if (target_language != "en"):
+                question_label.config(text=question)
+                option_a_button.config(
+                    text=str(translator.translate(option_a)), command=check_answer(option_a, result_label))
+                option_b_button.config(
+                    text=str(translator.translate(option_b)), command=check_answer(option_b, result_label))
+                option_c_button.config(
+                    text=str(translator.translate(option_c)), command=check_answer(option_c, result_label))
+                option_d_button.config(
+                    text=str(translator.translate(option_d)), command=check_answer(option_d, result_label))
+                result_label.config(text="")
+            else:
+                question_label.config(text=question)
+                option_a_button.config(
+                    text=option_a, command=check_answer(option_a, result_label))
+                option_b_button.config(
+                    text=option_b, command=check_answer(option_b, result_label))
+                option_c_button.config(
+                    text=option_c, command=check_answer(option_c, result_label))
+                option_d_button.config(
+                    text=option_d, command=check_answer(option_d, result_label))
+                result_label.config(text="")
     return on_click
 
 
 def next_question_right(result_label):
     get_question(0)
-    question_label.config(text=question)
-    option_a_button.config(
-        text=option_a, command=check_answer(option_a, result_label))
-    option_b_button.config(
-        text=option_b, command=check_answer(option_b, result_label))
-    option_c_button.config(
-        text=option_c, command=check_answer(option_c, result_label))
-    option_d_button.config(
-        text=option_d, command=check_answer(option_d, result_label))
-    result_label.config(text="")
+    if (target_language != "en"):
+        question_label.config(text=question)
+        option_a_button.config(
+            text=str(translator.translate(option_a)), command=check_answer(option_a, result_label))
+        option_b_button.config(
+            text=str(translator.translate(option_b)), command=check_answer(option_b, result_label))
+        option_c_button.config(
+            text=str(translator.translate(option_c)), command=check_answer(option_c, result_label))
+        option_d_button.config(
+            text=str(translator.translate(option_d)), command=check_answer(option_d, result_label))
+        result_label.config(text="")
+    else:
+        question_label.config(text=question)
+        option_a_button.config(
+            text=option_a, command=check_answer(option_a, result_label))
+        option_b_button.config(
+            text=option_b, command=check_answer(option_b, result_label))
+        option_c_button.config(
+            text=option_c, command=check_answer(option_c, result_label))
+        option_d_button.config(
+            text=option_d, command=check_answer(option_d, result_label))
+        result_label.config(text="")
 
 
 def previous_question_left(result_label):
-    
+
     count = get_question(-1)
-    question_label.config(text=question)
-    option_a_button.config(
-        text=option_a, command=check_answer(option_a, result_label))
-    option_b_button.config(
-        text=option_b, command=check_answer(option_b, result_label))
-    option_c_button.config(
-        text=option_c, command=check_answer(option_c, result_label))
-    option_d_button.config(
-        text=option_d, command=check_answer(option_d, result_label))
-    result_label.config(text="")
+    if (target_language != "en"):
+        question_label.config(text=question)
+        option_a_button.config(
+            text=str(translator.translate(option_a)), command=check_answer(option_a, result_label))
+        option_b_button.config(
+            text=str(translator.translate(option_b)), command=check_answer(option_b, result_label))
+        option_c_button.config(
+            text=str(translator.translate(option_c)), command=check_answer(option_c, result_label))
+        option_d_button.config(
+            text=str(translator.translate(option_d)), command=check_answer(option_d, result_label))
+        result_label.config(text="")
+    else:
+        question_label.config(text=question)
+        option_a_button.config(
+            text=option_a, command=check_answer(option_a, result_label))
+        option_b_button.config(
+            text=option_b, command=check_answer(option_b, result_label))
+        option_c_button.config(
+            text=option_c, command=check_answer(option_c, result_label))
+        option_d_button.config(
+            text=option_d, command=check_answer(option_d, result_label))
+        result_label.config(text="")
 
 
 def check_answer(option, result_label):
@@ -210,21 +269,32 @@ def options_questions(root, sub_root):
 
         result_label.pack()
 
-        option_a_button = tk.Button(answer_frame, text=option_a,
-                                    wraplength=300, command=check_answer(option_a, result_label))
-        option_a_button.grid(row=0, column=1, padx=10, pady=10)
-
-        option_b_button = tk.Button(answer_frame, text=option_b,
-                                    wraplength=300, command=check_answer(option_b, result_label))
-        option_b_button.grid(row=0, column=2, padx=10, pady=10)
-
-        option_c_button = tk.Button(answer_frame, text=option_c,
-                                    wraplength=300, command=check_answer(option_c, result_label))
-        option_c_button.grid(row=1, column=1, padx=10, pady=10)
-
-        option_d_button = tk.Button(answer_frame, text=option_d,
-                                    wraplength=300, command=check_answer(option_d, result_label))
-        option_d_button.grid(row=1, column=2, padx=10, pady=10)
+        if(target_language != "en"):
+            option_a_button = tk.Button(answer_frame, text=str(translator.translate(option_a)),
+                                        wraplength=300, command=check_answer(option_a, result_label))
+            option_a_button.grid(row=0, column=1, padx=10, pady=10)
+            option_b_button = tk.Button(answer_frame, text=str(translator.translate(option_b)),
+                                        wraplength=300, command=check_answer(option_b, result_label))
+            option_b_button.grid(row=0, column=2, padx=10, pady=10)
+            option_c_button = tk.Button(answer_frame, text=str(translator.translate(option_c)),
+                                        wraplength=300, command=check_answer(option_c, result_label))
+            option_c_button.grid(row=1, column=1, padx=10, pady=10)
+            option_d_button = tk.Button(answer_frame, text=str(translator.translate(option_d)),
+                                        wraplength=300, command=check_answer(option_d, result_label))
+            option_d_button.grid(row=1, column=2, padx=10, pady=10)
+        else:
+            option_a_button = tk.Button(answer_frame, text=option_a,
+                                        wraplength=300, command=check_answer(option_a, result_label))
+            option_a_button.grid(row=0, column=1, padx=10, pady=10)
+            option_b_button = tk.Button(answer_frame, text=option_b,
+                                        wraplength=300, command=check_answer(option_b, result_label))
+            option_b_button.grid(row=0, column=2, padx=10, pady=10)
+            option_c_button = tk.Button(answer_frame, text=option_c,
+                                        wraplength=300, command=check_answer(option_c, result_label))
+            option_c_button.grid(row=1, column=1, padx=10, pady=10)
+            option_d_button = tk.Button(answer_frame, text=option_d,
+                                        wraplength=300, command=check_answer(option_d, result_label))
+            option_d_button.grid(row=1, column=2, padx=10, pady=10)
 
     return on_click
 
@@ -249,6 +319,8 @@ def on_closing():
     return on_click
 
 # Create a gui
+
+
 def main(sub_root):
     global root, choice_frame, type_question_label, options_button, true_false_button
     root = tk.Tk()
@@ -284,6 +356,7 @@ def main(sub_root):
 
     root.mainloop()
 
+
 def back_fun(root, sub_root):
     def on_click():
         sub_root.withdraw()
@@ -291,10 +364,12 @@ def back_fun(root, sub_root):
         options_button.config(command=check_frame(root, sub_root))
     return on_click
 
+
 def check_frame(root, sub_root):
     def on_click():
         root.withdraw()
         sub_root.deiconify()
     return on_click
+
 
 main(sub_root)
