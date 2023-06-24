@@ -13,7 +13,7 @@ The questions are also not random but based on your result for every question, s
 ## Extra stuff (skip if you want)!
 1. To translate the questions into another language, do this.
 2. Install the required library: `pip install translate`
-3. Change this parameter ``to_lang="sq"``, in the `Main.py` file or `Main2.py` file where "en" represents English. For language abbreviations lookup on this page: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes and just change the "sq" with something else.
+3. Change this parameter ``to_lang="sq"``, in the `Main.py` file or `Main2.py` file where "en" represents English. For language abbreviations lookup on this page: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes and just change the "en" with something else.
 
 # Aplication
 The file `quiz.py` is forked from `https://github.com/Neti-G`, the rest is created from `d3st2k`
