@@ -15,7 +15,7 @@ def array_with_points():
     global vargu_ID
     vargu_ID = []
 
-    with open('./src/Data_dump.csv') as f:
+    with open('./src/questions/Nonformated_Dataset.csv') as f:
         reader = csv.reader(f)
         for row in reader:
             if row:
@@ -23,8 +23,9 @@ def array_with_points():
         for row in vargu_ID:
             row.append(1)
 
+    print("\nVargu ID:", vargu_ID)
+    
 array_with_points()
-
 
 def generate_random(number):
     global total
@@ -51,6 +52,7 @@ def generate_random(number):
             position = len(rand_generated_numbers) - 1
             rand_generated_numbers.append(rand)
             position += 1
+        print(rand)
         return rand
 
 
